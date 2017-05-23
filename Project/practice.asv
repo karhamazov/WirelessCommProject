@@ -1,0 +1,38 @@
+clc; clear; close all;
+figure('name','Packet Error Rate vs SnR')
+%% Paper: On the Throughput and Optimal Packet Length (Slow Rayleigh Fading)
+
+snrdB = 0:1:30;
+
+snrDec = 10.^(snrdB/10);
+
+% Paremeters
+
+n = 500; % packet length
+
+a = 1/2; c = 1/2; % for FSK
+eg = 0.577; % Euler Gamma
+
+avgPER = 1 - exp(-(log(n) + eg + log(a))./(c*snrDec));
+
+plot(snrdB, avgPER, 'ro--');
+
+a = 1/2; c = 1; % for dpsk
+avgPER = 1 - exp(-(log(n) + eg + log(a))./(c*snrDec));
+hold on;
+plot(snrdB, avgPER, 'bx--');
+
+title('Packet Error Rate vs SnR');
+
+xlabel('SnR in dB');
+
+ylabel('Packet Error Rate');
+grid on;
+
+legend on;
+legend({'FSK','DPSK'},'FontSize',12,'TextColor','blue');
+
+
+
+%% Throughput and Optimal Packet Length Analysis
+Nbar = 1 / (1 - a
